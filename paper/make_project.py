@@ -425,6 +425,7 @@ story.append(Paragraph(mk(
 
 story.append(Paragraph('References', H1))
 for i, r in enumerate([
+ "Johnsteven R, board-rescuer-deck: github.com/null422303/board-rescuer-deck",
  "Adafruit AMG88xx driver: github.com/adafruit/Adafruit_AMG88xx",
  "ESP32 Arduino core: github.com/espressif/arduino-esp32",
  "NumPy: github.com/numpy/numpy",

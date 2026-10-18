@@ -44,6 +44,7 @@ GAL_INDEX = os.path.join(GAL_DIR, "index.json")
 GAL_MAX = int(os.environ.get("THERMAL_GAL_MAX", "300"))
 FX_DIR = os.environ.get("THERMAL_FX", "/opt/thermal/fx")
 OG_IMG = os.environ.get("THERMAL_OG", "/opt/thermal/og.png")
+PAPER = os.environ.get("THERMAL_PAPER", "/opt/thermal/paper/Board-Rescuer-Deck.pdf")
 GAL_DAYS = int(os.environ.get("THERMAL_GAL_DAYS", "0"))   # 0 = keep by count only
 PASS = os.environ.get("THERMAL_PASS", "")
 AUTH_TOKEN = hashlib.sha256((PASS + "|" + TOKEN).encode()).hexdigest()[:32]
@@ -478,6 +479,13 @@ class H(BaseHTTPRequestHandler):
                     d = f.read()
                 return self._send(200, d, "image/png", [("Cache-Control", "public, max-age=86400")])
             return self._send(404, "no", "text/plain")
+        if path in ("/paper", "/paper.pdf"):
+            if os.path.isfile(PAPER):
+                with open(PAPER, "rb") as f:
+                    d = f.read()
+                return self._send(200, d, "application/pdf",
+                                  [("Content-Disposition", "inline; filename=Board-Rescuer-Deck.pdf")])
+            return self._send(404, "no paper", "text/plain")
         if path.rstrip("/") in ("/docs",):
             return self._send(200, PAGE, "text/html; charset=utf-8")
         if path == "/api/stack":
@@ -1049,6 +1057,11 @@ PAGE = r"""<!DOCTYPE html><html lang="en"><head>
     <h1 style="margin:0;font-size:19px">Documentation<small style="display:block;font-weight:400;font-size:11px;color:var(--dim);margin-top:2px">AMG8833 thermal &middot; camera AR &middot; AI component ID</small></h1>
     <button id="docsclose">&#8592; Back to live</button>
   </div>
+
+  <p style="margin:2px 0 14px"><a href="/paper" target="_blank" rel="noopener"
+     style="display:inline-block;padding:9px 15px;border:1px solid var(--line);border-radius:9px;
+     background:#141428;color:var(--fg);text-decoration:none;font-size:13px">&#128196; Read the paper
+     <span style="color:var(--dim)">&mdash; The Right-to-Repair Board Rescuer Deck (PDF)</span></a></p>
 
   <h2>1 &middot; What this is</h2>
   <p>An <b>ESP32</b> with an <b>AMG8833 &ldquo;Grid-EYE&rdquo;</b> 8&times;8 infrared sensor pushes frames over TLS to a VPS. The VPS keeps <b>only the raw 8&times;8 temperature grid</b>, renders every picture <b>server-side</b>, and streams it to any browser at up to 30&nbsp;fps. A phone camera can overlay the heat map on the live view to hunt hot components; a vision AI names the component and finds a cheap price.</p>
