@@ -174,7 +174,7 @@ FIGW = {'col_arch.png': 0.82, 'col_schematic.png': 0.90, 'col_packet.png': 0.80,
 
 def fig(name, caption, w=None, photo=False):
     if w is None:
-        w = COLW * FIGW.get(name, 0.40 if photo else 0.86) * float(os.environ.get('FS', '0.90'))
+        w = COLW * FIGW.get(name, 0.40 if photo else 0.86) * float(os.environ.get('FS', '1.0'))
     p = os.path.join(PHOD if photo else FIGD, name)
     iw, ih = PILImage.open(p).size
     # the caption is indented to exactly the picture's width, so it sits under
@@ -449,9 +449,24 @@ story.append(Paragraph(mk(
  "from another room and a disputed diagnosis can be seen by both parties at the same moment. That is "
  "precisely the argument that is hardest to make with a photograph taken afterwards."), BODY))
 
-# no reference list: one small note giving the code and its author
-story.append(Spacer(1, 4))
-story.append(Paragraph(mk("Code: Johnsteven R, github.com/null422303/board-rescuer-deck"), REF))
+story.append(Paragraph('References', H1))
+for i, r in enumerate([
+ "Johnsteven R, board-rescuer-deck: github.com/null422303/board-rescuer-deck",
+ "Adafruit AMG88xx driver: github.com/adafruit/Adafruit_AMG88xx",
+ "ESP32 Arduino core: github.com/espressif/arduino-esp32",
+ "NumPy: github.com/numpy/numpy",
+ "Matplotlib: github.com/matplotlib/matplotlib",
+ "ReportLab: reportlab.com",
+ "Pyphen: github.com/Kozea/Pyphen",
+ "Caddy: github.com/caddyserver/caddy",
+ "Melexis MLX90640 32x24 IR array: melexis.com/en/product/MLX90640",
+ "OpenRouter: openrouter.ai",
+ "z-ai/glm-5.3-flash via OpenRouter",
+ "N. Otsu, IEEE Trans. SMC 9(1), 1979",
+ "K. Zuiderveld, Graphics Gems IV, 1994",
+ "WHATWG HTML Standard: Server-sent events",
+], 1):
+    story.append(Paragraph(mk("[%d]&nbsp;&nbsp;%s" % (i, r)), REF))
 
 OUT = os.path.join(HERE, 'Board-Rescuer-Deck.pdf')
 doc = BaseDocTemplate(OUT, pagesize=letter, leftMargin=LM, rightMargin=RM,
