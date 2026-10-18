@@ -110,7 +110,10 @@ SECTIONS = []
 # 1 and 2 are the reference's motivation, kept verbatim
 SECTIONS += [
  ('1.&nbsp;&nbsp;The Average Person\u2019s Problem',
-  ["When a washing machine, a modern microwave, or a car dashboard breaks, the local repairman usually "
+  ["This paper describes a small thermal instrument for finding the failed part on a control board. It is "
+   "built from parts that cost less than one board replacement, it is driven from an ordinary phone, and "
+   "it is reported because it has been built and run rather than proposed.",
+   "When a washing machine, a modern microwave, or a car dashboard breaks, the local repairman usually "
    "says, \u201cThe whole motherboard is dead, you need to buy a new one for &#8377;15,000.\u201d In reality, a "
    "single &#8377;50 power semiconductor (such as a MOSFET or a voltage regulator) has short-circuited. "
    "Manufacturers use proprietary software to lock down diagnostics, forcing consumers into expensive "
@@ -149,6 +152,12 @@ SECTIONS += [
    "absolute temperature rather than contrast. The sensor shares its 3.3 V rail with an ESP32 DevKit, "
    "and it needs only four wires: power, ground, data and clock. The whole node is powered from a "
    "single USB lead, so there is no separate supply to bring to the bench.",
+   "The controller is an ESP32, a low-cost dual-core microcontroller with Wi-Fi built in. It is the most "
+   "widely used part in its class, and the same board already sits in sensor gateways, smart switches, "
+   "energy meters and lighting controllers. For this instrument its value is simply that it brings a "
+   "network interface, enough memory to buffer frames and a spare processor core at a price below the "
+   "sensor itself, so the sampling loop can run independently of the link and a slow network degrades "
+   "the display without disturbing the measurements.",
    "Each frame is 128 bytes: 64 signed 16-bit integers in little-endian order representing degrees "
    "Celsius times one hundred. This is a lossless representation of the sensor's own output, it needs no "
    "parsing beyond a memory cast (reinterpreting the same bytes as integers), and it costs only "
@@ -165,7 +174,7 @@ FIGW = {'col_arch.png': 0.82, 'col_schematic.png': 0.90, 'col_packet.png': 0.80,
 
 def fig(name, caption, w=None, photo=False):
     if w is None:
-        w = COLW * FIGW.get(name, 0.40 if photo else 0.86)
+        w = COLW * FIGW.get(name, 0.40 if photo else 0.86) * float(os.environ.get('FS', '0.90'))
     p = os.path.join(PHOD if photo else FIGD, name)
     iw, ih = PILImage.open(p).size
     # the caption is indented to exactly the picture's width, so it sits under
@@ -336,7 +345,7 @@ story.append(Paragraph(mk(
  "moment the node returns."), BODY))
 story.extend(fig('1792236081738.jpg',
  "Fig. 6. The live overlay in use; the marked cell reads 30.5&nbsp;&deg;C.",
- w=COLW*float(os.environ.get('F6','0.68')), photo=True))
+ w=COLW*float(os.environ.get('F6','0.68'))*float(os.environ.get('FS','0.90')), photo=True))
 
 story.append(Paragraph('7.&nbsp;&nbsp;Identification and Sourcing', H1))
 story.append(Paragraph(mk(
@@ -352,7 +361,7 @@ story.append(Paragraph(mk(
  "gallery is capped so that the host cannot fill up. Fig. 7 shows a recorded diagnosis."), BODY))
 story.extend(fig('1792234036968.jpg',
  "Fig. 7. A recorded diagnosis: hotspot temperature, identified component and sourced price.",
- w=COLW*float(os.environ.get('F7','0.64')), photo=True))
+ w=COLW*float(os.environ.get('F7','0.64'))*float(os.environ.get('FS','0.90')), photo=True))
 
 story.append(Paragraph('8.&nbsp;&nbsp;Results', H1))
 story.append(Paragraph(mk(
@@ -403,10 +412,16 @@ for b, t in [
     story.append(Paragraph(mk("<b>%s</b> %s" % (b, t)), BODY))
 
 story.append(Paragraph('10.&nbsp;&nbsp;Future Work', H1))
-for t in ["Move to a 32&times;24 array and re-validate localisation on dense boards.",
+for t in ["Move to a Melexis MLX90640 32&times;24 array and re-validate localisation on dense boards.",
           "Instrument the tray so the injected current is logged alongside the thermal frame, allowing "
           "short and open faults to be classified automatically.",
-          "Move identification on-device and cache datasheets and part pricing for offline operation.",
+          "Hold the board at a controlled temperature in a cooling chamber, so the absolute temperature "
+          "field becomes repeatable between runs and between boards instead of depending on a steady "
+          "state being reached.",
+          "Run the identification on the phone itself with the node acting as its server, so that a board "
+          "can be named and priced over a local connection with no internet at all; the node and the "
+          "handset would then form a self-contained instrument for a workshop without reliable "
+          "connectivity.",
           "Generate the desoldering guide from the identified package and the board photograph, and "
           "evaluate the deck with working repair technicians.",
           "Add a second marker for the coolest cell, so that a board with no hotspot can be shown to be "
@@ -434,23 +449,9 @@ story.append(Paragraph(mk(
  "from another room and a disputed diagnosis can be seen by both parties at the same moment. That is "
  "precisely the argument that is hardest to make with a photograph taken afterwards."), BODY))
 
-story.append(Paragraph('References', H1))
-for i, r in enumerate([
- "Johnsteven R, board-rescuer-deck: github.com/null422303/board-rescuer-deck",
- "Adafruit AMG88xx driver: github.com/adafruit/Adafruit_AMG88xx",
- "ESP32 Arduino core: github.com/espressif/arduino-esp32",
- "NumPy: github.com/numpy/numpy",
- "Matplotlib: github.com/matplotlib/matplotlib",
- "ReportLab: reportlab.com",
- "Pyphen: github.com/Kozea/Pyphen",
- "Caddy: github.com/caddyserver/caddy",
- "OpenRouter: openrouter.ai",
- "z-ai/glm-5.3-flash via OpenRouter",
- "N. Otsu, IEEE Trans. SMC 9(1), 1979",
- "K. Zuiderveld, Graphics Gems IV, 1994",
- "WHATWG HTML Standard: Server-sent events",
-], 1):
-    story.append(Paragraph(mk("[%d]&nbsp;&nbsp;%s" % (i, r)), REF))
+# no reference list: one small note giving the code and its author
+story.append(Spacer(1, 4))
+story.append(Paragraph(mk("Code: Johnsteven R, github.com/null422303/board-rescuer-deck"), REF))
 
 OUT = os.path.join(HERE, 'Board-Rescuer-Deck.pdf')
 doc = BaseDocTemplate(OUT, pagesize=letter, leftMargin=LM, rightMargin=RM,
