@@ -1,0 +1,60 @@
+                            The Right-to-Repair Board Rescuer Deck
+
+                Johnsteven R                             Pranav Charan B                              S Raaghav Ayyavoo
+      johnsteven.r2026@vitstudent.ac.in          pranavcharan.b2026@vitstudent.ac.in          raaghavayyavoo.s2026@vitstudent.ac.in
+
+                 Maarthi P                               N Akilan Gautham                             M Dharshan Bagath
+       maarthi.p2026@vitstudent.ac.in           akilangautham.n2026@vitstudent.ac.in          dharshanbagath.m2026@vitstudent.ac.in
+
+                                                              T D Asvin
+                                                    asvin.td2026@vitstudent.ac.in
+                                   Vellore Institute of Technology, Chennai, Tamil Nadu, India
+
+
+                                                             Abstract
+Electronic control boards in modern appliances and vehicles are routinely declared unrepairable: a single short-circuited power
+semiconductor worth a few tens of rupees leads a technician to recommend replacing an entire motherboard costing thousands. This
+paper presents the Right-to-Repair Board Rescuer Deck, a portable diagnostic platform aimed at neighbourhood repair shops (re-
+pair-walas) and DIY consumers. The key insight is that failed power semiconductors expose themselves through localised thermal
+and electrical signatures when the board is energised at a safe, low voltage. The deck combines a low-cost thermal-imaging array
+(MLX90640) with automated multimeter probes in a testing tray, and uses edge AI to localise the faulty device, identify its part
+number, retrieve a datasheet, and display a step-by-step desoldering and replacement guide. The approach reduces repair cost from
+whole-board replacement to component-level substitution, extending device lifetime and cutting electronic waste.
+
+
+1. The Average Person’s Problem                                         3. The Proposed Solution
+When a washing machine, a modern microwave, or a car                    We propose a portable Right-to-Repair Board Rescuer Deck
+dashboard breaks, the local repairman usually says, “The                designed for local neighbourhood repair shops (repair-walas)
+whole motherboard is dead, you need to buy a new one for                and DIY consumers.
+₹15,000.” In reality, a single ₹50 power semiconductor                  The deck is a portable, laptop-like instrument. Its lid houses
+(such as a MOSFET or a voltage regulator) has short-cir-                a low-cost thermal array (the MLX90640, 32 by 24 pixels)
+cuited. Manufacturers use proprietary software to lock down             and a camera for part-number recognition; its base holds a
+diagnostics, forcing consumers into expensive replacements.             testing tray, retractable multimeter probes, and a current-lim-
+The gap between the cost of the failed part and the price of            ited power supply. A single-board computer and touchscreen
+the repair is the core economic problem. A transistor or regu-          run the diagnosis locally, and the unit is built from widely
+lator costs between ₹10 and ₹100, yet a board replacement               available parts so that it stays affordable and works offline.
+for a washing machine or dashboard can be quoted at ₹8,000
+to ₹20,000. Because the board is sealed or undocumented,                4. How It Works
+the technician cannot cheaply prove that the fault is local-            The deck has a built-in thermal imaging camera (such as an
+ised, so serviceable hardware becomes electronic waste.                 MLX90640 sensor) and automated multimeter probes built
+Manufacturers reinforce this with proprietary diagnostics,              into a testing tray. The user places the broken board on the
+serialised parts, and software locks that reject replacements.          deck, which injects a safe, low voltage into it. The thermal
+                                                                        camera instantly spots the exact semiconductor that is over-
+2. The Semiconductor Connection                                         heating (the shorted chip). The deck’s screen then uses edge
+Modern appliance boards are packed with microcontrollers                AI to identify the chip’s part number, searches for a data-
+and power semiconductors. When they fail, they usually fail             sheet, and shows a 3D video guide on how to desolder and
+“short” or “open”, creating a detectable thermal or electrical          replace that exact ₹50 chip.
+signature.                                                              In use, the operator places the suspect board on the tray,
+Power semiconductors fail most often because they carry the             where spring-loaded probes contact its main power rails, and
+largest currents and dissipate the most heat. A MOSFET                  the deck energises it at a safe, current-limited voltage while
+switching a motor can fail as a drain-to-source short, while a          capturing a thermal image. A Python and OpenCV pipeline
+regulator or rectifier can fail short, open, or drift out of spe-       compares the frame with the ambient baseline, flags regions
+cification after mains transients, inrush current, thermal cyc-         that exceed a temperature threshold, and overlays their co-
+ling, moisture, or ageing. A shorted device draws abnormal              ordinates. The hottest anomaly is almost always the shorted
+current and becomes a localised hot spot within seconds,                device, because that is where electrical energy becomes heat.
+whereas an open device removes current from a whole rail,               The deck then reads the part number, retrieves its datasheet,
+so a safe, current-limited low voltage can reveal either fault.         and shows a three-dimensional guide for replacing it.
+
+
+                                                                    1
+

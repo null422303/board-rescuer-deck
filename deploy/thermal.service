@@ -1,0 +1,24 @@
+[Unit]
+Description=Thermal AMG8833 ingest + public web (127.0.0.1:8090)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/thermal
+Environment=THERMAL_BIND=127.0.0.1
+Environment=THERMAL_PORT=8090
+Environment=THERMAL_TOKEN=CHANGE_ME
+Environment=OPENROUTER_KEY=CHANGE_ME
+Environment=OR_AI=1
+Environment=THERMAL_PASS=CHANGE_ME
+Environment=THERMAL_GALLERY=/opt/thermal/gallery
+Environment=THERMAL_GAL_MAX=300
+Environment=THERMAL_GAL_DAYS=0
+ExecStart=/usr/bin/python3 /opt/thermal/thermal_server.py
+Restart=always
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
