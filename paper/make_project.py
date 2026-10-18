@@ -168,7 +168,19 @@ def fig(name, caption, w=None, photo=False):
         w = COLW * FIGW.get(name, 0.40 if photo else 0.86)
     p = os.path.join(PHOD if photo else FIGD, name)
     iw, ih = PILImage.open(p).size
-    return [Spacer(1, 5), Image(p, width=w, height=w * ih / iw), Paragraph(mk(caption), CAP)]
+    # the caption is indented to exactly the picture's width, so it sits under
+    # the picture rather than spanning the whole text column
+    # image and caption in ONE table row-block: the caption can never be
+    # orphaned into the next column while its picture stays behind
+    t = Table([[Image(p, width=w, height=w * ih / iw)],
+               [Paragraph(mk(caption), CAP)]], colWidths=[w], hAlign='CENTER')
+    t.setStyle(TableStyle([('LEFTPADDING', (0, 0), (-1, -1), 0),
+                           ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+                           ('TOPPADDING', (0, 0), (-1, -1), 0),
+                           ('BOTTOMPADDING', (0, 0), (0, 0), 4),
+                           ('BOTTOMPADDING', (0, 1), (0, 1), 0),
+                           ('VALIGN', (0, 0), (-1, -1), 'TOP')]))
+    return [Spacer(1, 5), KeepTogether(t)]
 
 def table(rows, widths, caption):
     """Caption lives in a spanning final row, so it can never be orphaned
@@ -324,7 +336,7 @@ story.append(Paragraph(mk(
  "moment the node returns."), BODY))
 story.extend(fig('1792236081738.jpg',
  "Fig. 6. The live overlay in use; the marked cell reads 30.5&nbsp;&deg;C.",
- w=COLW*0.80, photo=True))
+ w=COLW*float(os.environ.get('F6','0.68')), photo=True))
 
 story.append(Paragraph('7.&nbsp;&nbsp;Identification and Sourcing', H1))
 story.append(Paragraph(mk(
@@ -340,7 +352,7 @@ story.append(Paragraph(mk(
  "gallery is capped so that the host cannot fill up. Fig. 7 shows a recorded diagnosis."), BODY))
 story.extend(fig('1792234036968.jpg',
  "Fig. 7. A recorded diagnosis: hotspot temperature, identified component and sourced price.",
- w=COLW*0.62, photo=True))
+ w=COLW*float(os.environ.get('F7','0.64')), photo=True))
 
 story.append(Paragraph('8.&nbsp;&nbsp;Results', H1))
 story.append(Paragraph(mk(

@@ -10,7 +10,7 @@ e1cbe08f37ba65fae11909287aeea90b0d2d16f1d72d8a096dbf74bb3b63bb97  ./deploy/caddy
 ca0937a90732a63683255c9e7cfb9e7ae6b9f877bd0665028de87102f354df47  ./esp32/amg_thermal_push.ino
 c7ed0c21b8f07278a497de23a6a67c5011948d986dabc64fbde81f464604ddd2  ./esp32/amg_thermal_sta.ino
 efdbc65ab51d9a016f399f408b8cb8a86a86d225107f146933dbca917d2d33b0  ./.gitignore
-22d7ad81759662a0187afc70c655b3fc4f4c1d5fbe485550c358c4f1c75983dc  ./paper/Board-Rescuer-Deck.pdf
+20dad1f74cb94a9348095f5df11d8b007b350b2df87e4df923f13e5d4487d1b1  ./paper/Board-Rescuer-Deck.pdf
 ebe5489a7184a85096e241486c8939be89765b49ba05fe902b040cb40dbc862c  ./paper/figures/col_arch.png
 3d24daeb987e187ac7742e752becb2243401cc5a2af00ab77289442cb586b55e  ./paper/figures/col_detection.png
 7685858ed7d9911c311a3ee1e5b6f868b758c79b7cdc42f7710fafc5190d21c2  ./paper/figures/col_injection.png
@@ -34,7 +34,7 @@ e674464b475e010a598fa575d008c46230fd5ae088782fb27ce60e1559f24bc2  ./paper/make_f
 1ef0b25f4216dbf9f66d467514e54f4eef69b8cbc2b1c42d56a3ddbfdc17b54d  ./paper/make_figures.py
 b04118f634fbb17ec132ff3b668ac4e22e57e53d38668c57e5c143e8366ca205  ./paper/make_paper2.py
 139d9fda6cfca9559dee4a1b9ac860736b8a2f798bcf3818f4b0ae07058a8ffd  ./paper/make_paper.py
-8ea2e8375a4b871330d1f0e17a52ae1994d97aa3bc62ee37ed11635ceea39ed7  ./paper/make_project.py
+5b6a61cbb203260dddb108f97e4105174d247cb191bb9380201797544cb2c2e6  ./paper/make_project.py
 e362ff0379c4778526234febbf8284b50c6643ad7c4f7dc6183c8b385ab2f57d  ./paper/original-submission.pdf
 3eaa996b03877a8f606bf2b96d842bbdc0cd60f79a0532888b129405a14967f0  ./paper/original-text.txt
 a79407becad676c1ed9f415340eeb2057161f99f5bcd4105f0b63b9341d346a2  ./paper/photos/1792234036968.jpg
