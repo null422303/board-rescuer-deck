@@ -10,7 +10,7 @@ e1cbe08f37ba65fae11909287aeea90b0d2d16f1d72d8a096dbf74bb3b63bb97  ./deploy/caddy
 ca0937a90732a63683255c9e7cfb9e7ae6b9f877bd0665028de87102f354df47  ./esp32/amg_thermal_push.ino
 c7ed0c21b8f07278a497de23a6a67c5011948d986dabc64fbde81f464604ddd2  ./esp32/amg_thermal_sta.ino
 efdbc65ab51d9a016f399f408b8cb8a86a86d225107f146933dbca917d2d33b0  ./.gitignore
-4f5ed3f9629df9143867bc4772e80dc84df4102234bb5ad368242d23c5920163  ./paper/Board-Rescuer-Deck.pdf
+4d701b5fd4348724971e62217b0910dce6c4ceeb7341410f6520350f48c6d602  ./paper/Board-Rescuer-Deck.pdf
 ebe5489a7184a85096e241486c8939be89765b49ba05fe902b040cb40dbc862c  ./paper/figures/col_arch.png
 3d24daeb987e187ac7742e752becb2243401cc5a2af00ab77289442cb586b55e  ./paper/figures/col_detection.png
 7685858ed7d9911c311a3ee1e5b6f868b758c79b7cdc42f7710fafc5190d21c2  ./paper/figures/col_injection.png
