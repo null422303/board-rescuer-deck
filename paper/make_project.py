@@ -324,7 +324,7 @@ story.append(Paragraph(mk(
  "moment the node returns."), BODY))
 story.extend(fig('1792236081738.jpg',
  "Fig. 6. The live overlay in use; the marked cell reads 30.5&nbsp;&deg;C.",
- w=COLW*0.38, photo=True))
+ w=COLW*0.80, photo=True))
 
 story.append(Paragraph('7.&nbsp;&nbsp;Identification and Sourcing', H1))
 story.append(Paragraph(mk(
@@ -340,7 +340,7 @@ story.append(Paragraph(mk(
  "gallery is capped so that the host cannot fill up. Fig. 7 shows a recorded diagnosis."), BODY))
 story.extend(fig('1792234036968.jpg',
  "Fig. 7. A recorded diagnosis: hotspot temperature, identified component and sourced price.",
- w=COLW*0.38, photo=True))
+ w=COLW*0.62, photo=True))
 
 story.append(Paragraph('8.&nbsp;&nbsp;Results', H1))
 story.append(Paragraph(mk(
@@ -414,9 +414,8 @@ story.append(Paragraph('12.&nbsp;&nbsp;Cost and Deployment', H1))
 story.append(Paragraph(mk(
  "The instrument costs less than one of the boards it is meant to save. The sensing node is a "
  "microcontroller and one sensor on a breadboard, both bought locally; the server is a single program "
- "on an ordinary machine; and the display is whatever phone the technician already owns. The only "
- "recurring cost is the identification step, about one rupee per photograph and only when the operator "
- "chooses to capture. Nothing has to be installed on the phone, which matters when the people who need "
+ "on an ordinary machine; and the display is whatever phone the technician already owns. There is no "
+ "recurring charge to display a board, and nothing has to be installed on the phone, which matters when the people who need "
  "the instrument most are the least likely to install an application."), BODY))
 story.append(Paragraph(mk(
  "The same feed serves any number of viewers at once, so a senior technician can watch a junior's board "
